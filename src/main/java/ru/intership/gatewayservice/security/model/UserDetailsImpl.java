@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
@@ -14,6 +16,12 @@ public class UserDetailsImpl implements UserDetails {
     private final String userId;
     private final String username;
     private final Collection<? extends GrantedAuthority> roles;
+
+    public Set<String> getRoles() {
+        return roles.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

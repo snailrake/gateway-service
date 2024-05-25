@@ -21,21 +21,29 @@ spring:
           uri: lb://portal-service
           predicates:
             - Path=/portal/**
+          filters:
+            - RewritePath=/portal,/
 
         - id: logist
           uri: lb://logist-service
           predicates:
             - Path=/logist/**
+          filters:
+            - RewritePath=/logist,/
 
         - id: driver
           uri: lb://driver-service
           predicates:
             - Path=/driver/**
+          filters:
+            - RewritePath=/driver,/
 
         - id: dwh
           uri: lb://dwh-service
           predicates:
             - Path=/dwh/**
+          filters:
+            - RewritePath=/dwh,/
 
     discovery:
       enabled: true
