@@ -39,8 +39,8 @@ public class SecurityConfig {
                     requests.pathMatchers(HttpMethod.POST, "/portal/vehicle/**").hasAnyAuthority(UserRole.LOGIST.name(), UserRole.ADMIN.name());
                     requests.pathMatchers(HttpMethod.POST, "/portal/user/driver/**").hasAnyAuthority(UserRole.LOGIST.name());
                     requests.pathMatchers("/logist/**").hasAnyAuthority(UserRole.LOGIST.name());
-                    requests.pathMatchers("/driver/**").authenticated();
-                    requests.pathMatchers("/dwh/**").authenticated();
+                    requests.pathMatchers("/driver/**").hasAnyAuthority(UserRole.DRIVER.name());
+                    requests.pathMatchers("/dwh/**").hasAnyAuthority(UserRole.ADMIN.name(), UserRole.LOGIST.name());
                 })
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec
                         .authenticationManagerResolver(context -> Mono.just(provider))
